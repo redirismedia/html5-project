@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<head>
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+    <script>
+        function Foo()
+        {
+            this.name = 'foo';
+            this.age = 34;
+            
+        }
+
+        var foo = new Foo();
+        //console.log(foo.age);
+
+        // Extend Foo
+        function FooExtended()
+        {
+            this.age = 22;
+        }
+        FooExtended.prototype = new Foo();
+        //FooExtended.prototype.car = "mazda";
+
+        var fooExtended = new FooExtended();
+
+        console.log(fooExtended.name);
+        console.log(fooExtended.age);
+        //console.log(fooExtended.car);
+
+
+    </script>
+
+</body>
+
+
+</html>

@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+<title>Backbone Example</title>
+
+
+<!-- Javascript -->
+<script src="js/lib/jquery-1.9.1.min.js"></script>
+<script src="js/lib/underscore-min.js"></script>
+<script src="js/lib/backbone-min.js"></script>
+
+<style>
+
+#background { 
+    width:200px; height:100px; 
+    background:#cccccc;
+}
+
+.navButton { 
+    border-width:3px;
+    width:100px;
+    height:30px;
+    cursor:pointer;
+}
+
+#section {
+   border-width: 2px;
+   width: 200px; height: 100px; 
+   
+   background:#eeeeee;
+}
+</style>
+
+
+
+</head>
+
+<body>
+
+<!-- Main  -->
+<div id="main">
+
+    <!-- Nav  -->
+    <div id="nav">
+        <input id="homeButton" class="navButton" type="button" value="Home" />
+        <input id="storyButton" class="navButton" type="button" value="Story" />
+        <input id="videosButton" class="navButton" type="button" value="Videos" />
+    </div>
+
+    <!-- Section -->
+    <div id="section">
+    </div>
+
+
+    <div id="background"></div>
+
+</div>
+<!-- /Main -->
+
+<script>
+
+// Nav view
+var NavView = Backbone.View.extend({
+    initialize: function() {
+        _.bindAll(this, 'setSection', 'changeColor');
+
+        this.homeButton = $("#homeButton");
+        this.storyButton = $("#storyButton");
+        this.videosButton = $("#videosButton");
+
+        // Attach section attr
+        this.homeButton.attr("section", "home");
+        this.storyButton.attr("section", "story");
+        this.videosButton.attr("section", "videos");
+    },
+
+    events: {
+        'click .navButton':'setSection'
+    },
+
+    // Change the color of the nav
+    changeColor: function(color) {
+        this.color = color;
+        this.render();
+    },
+
+    // Render the nav
+    render: function() {
+        console.log("NavView render");
+        this.homeButton.css('border-color', this.color);
+        this.storyButton.css('border-color', this.color);
+        this.videosButton.css('border-color', this.color);
+    },
+
+    // Set the section for this view
+    setSection: function(event) {
+        var section = $(event.target).attr("section");
+        this.model.set({ 'currentSection':section });
+    }
+});
+
+// Nav model
+var NavModel = Backbone.Model.extend({
+    defaults: {
+        currentSection: ''
+    }
+});
+
+// Section model
+var SectionModel = Backbone.Model.extend({
+    defaults: {
+        currentSection: ''
+    }
+});
+
+// Section view
+var SectionView = Backbone.View.extend({
+    initialize: function() {
+        this.currentSection = '';
+    },
+
+    changeSection: function(section) {
+        this.currentSection = section;
+        this.render();
+    },
+
+    render: function() {
+        console.log("SectionView render");
+        this.$el.html('Section: ' + this.currentSection);
+    }
+});
+
+
+// Main view
+var MainView = Backbone.View.extend({
+
+    el: $('main'),
+
+    initialize: function() {
+        _.bindAll(this, 'render', 'onNavModelChange');
+
+        console.log('MainView initialize');
+
+        // Variables
+        this.currentSection = 'home';
+
+        // Views
+        this.navModel = new NavModel();
+        this.navView = new NavView({ model: this.navModel, el:'#nav' });
+
+        this.sectionModel = new SectionModel();
+        this.sectionView = new SectionView({ model:this.sectionModel, el:'#section' });
+
+        // Event Listeners
+        this.navModel.on('change', this.onNavModelChange);
+    },
+
+    // When the navModel is changed
+    onNavModelChange: function() {
+        this.currentSection = this.navModel.get('currentSection');
+        this.render();
+    },
+
+    // Render the view
+    render: function() {
+        console.log('MainView render');
+
+        var color;
+
+        switch (this.currentSection) {
+            case 'home':
+                color = '#990000';
+                break;
+            case 'story':
+                color = '#009900';
+                break;
+            case 'videos':
+                color = '#000099';
+                break;
+            default:
+                color = '#333333';
+                break;
+        }
+
+        // Render nav
+        this.navView.changeColor(color);
+
+        // Render section
+        this.sectionView.changeSection(this.currentSection);
+    }
+
+});
+
+// Start app by creating MainView
+var mainView = new MainView();
+
+
+
+</script>
+
+
+</body>
+
+
+</html>

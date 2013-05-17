@@ -1,23 +1,17 @@
 (function() {
 
 	// Constants
-
 	var MIN_WINDOW_WIDTH = 1200;
 	var MIN_WINDOW_HEIGHT = 900;
 
 
-
 	// Variables
-
 	var windowWidth;
 	var windowHeight;
 
 
-
 	// Event Listeners
-
 	$(document).ready(onDocumentReady);
-
 	$(window).resize(onWindowResize);
 
 
@@ -28,7 +22,12 @@
 	// When the document has finished loading. Init the site here.
 	function onDocumentReady()
 	{
-		Utils.getURL();
+		// Add classes to <html> for browser/versions
+		var isIE = (navigator.userAgent.toLowerCase().indexOf("msie") > -1);
+		if (isIE)
+			$("html").addClass("ie");
+
+
 	}
 
 
@@ -42,8 +41,8 @@
 	// Update resize information
 	function resizeUpdate()
 	{
-		windowWidth = $(window).innerWidth(); // window.innerWidth;
-		windowHeight = $(window).innerHeight(); // window.innerHeight;
+		windowWidth = $(window).innerWidth();
+		windowHeight = $(window).innerHeight();
 		
 		// Apply minimums
 		if (windowWidth < MIN_WINDOW_WIDTH) windowWidth = MIN_WINDOW_WIDTH;

@@ -2,9 +2,7 @@ JS Library Outline
 ==================
 
 backbone-min.js
- - haven't used this
  - http://backbonejs.org/
-
 
 jquery-1.9.1.min.js
  - JS library for traversal, manipulations, handling, animations, ajax

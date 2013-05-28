@@ -31,9 +31,16 @@
     
     <!-- Javascript -->
     <script src="js/lib/jquery-1.9.1.min.js"></script>
-   
-    <script src="js/lib/less.js"></script>
+    <script src="js/lib/underscore-min.js"></script>
+    <script src="js/lib/backbone-min.js"></script>
+    
+    <script src="js/app/Nav.js"></script>
+    <script src="js/app/Background.js"></script>
+    <script src="js/app/Audio.js"></script>
+    <script src="js/app/Section.js"></script>
+    <script src="js/app/Main.js"></script>
 
+    <script src="js/lib/less.js"></script>
     <script src="js/lib/utils.js"></script>
 
     <script src="js/main.js"></script>
@@ -58,10 +65,33 @@
 <!-- Main -->
 <div id="main">
 
-    <input type='button' class='sample' value='click me' />
+    <!-- Background -->
+    <div id="background"><img src="img/background.jpg" /></div>
+
+    <!-- Nav -->
+    <div id="nav">
+        <input id="homeButton" class="navButton" type="button" value="Home" />
+        <input id="storyButton" class="navButton" type="button" value="Story" />
+        <input id="videosButton" class="navButton" type="button" value="Videos" />
+    </div>
+
+    <!-- Section -->
+    <div id="section">
+    </div>
+
+    <!-- Audio Button -->
+    <div id="audioButton"></div>
 
 </div>
 <!-- /Main -->
+
+
+<!-- Audio -->
+<audio id="audioplayer" loop>
+    <source src="sounds/background.mp3" type="audio/mp3" />
+    <source src="sounds/background.ogg" type="audio/ogg" />
+</audio> 
+
 
 </body>
 

@@ -1,19 +1,20 @@
 (function() {
 
 	// Constants
-	var MIN_WINDOW_WIDTH = 1200;
-	var MIN_WINDOW_HEIGHT = 900;
+	var MIN_WINDOW_WIDTH = 1000;
+	var MIN_WINDOW_HEIGHT = 760;
 
 
 	// Variables
 	var windowWidth;
 	var windowHeight;
 
+	var mainView;
+
 
 	// Event Listeners
 	$(document).ready(onDocumentReady);
-	$(window).resize(onWindowResize);
-
+	
 
 
 	// Functions
@@ -28,14 +29,21 @@
 			$("html").addClass("ie");
 
 
-	}
+		// Start app by creating MainView
+		mainView = new MainView();
 
+		// Resize init
+		onWindowResize();
+		$(window).resize(onWindowResize);
+	}
 
 
 	// When window is resized. Resize objects here.
 	function onWindowResize()
 	{
+		resizeUpdate();
 
+		mainView.resize(windowWidth, windowHeight);
 	}
 	
 	// Update resize information

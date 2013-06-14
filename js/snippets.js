@@ -63,3 +63,18 @@ window.fbAsyncInit = function() {
 		_gaq.push(['_trackSocial', 'facebook', 'unlike']);
 	});
 }
+
+// Animation function
+window.requestAnimFrame = (function(callback) {
+	return	window.requestAnimationFrame || 
+			window.webkitRequestAnimationFrame || 
+			window.mozRequestAnimationFrame || 
+			window.oRequestAnimationFrame || 
+			window.msRequestAnimationFrame ||
+			function(callback) {
+				window.setTimeout(callback, 16.66);
+			};
+})();
+
+// Usage with animate function
+// window.requestAnimFrame(animate);
